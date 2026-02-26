@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: header('Gestion Utilisateurs')}"></head>
+<body class="bg-light">
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{fragments/layout :: sidebar('admin-users')}"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <h1 class="h2 mb-4">Administration : Utilisateurs</h1>
+
+            <div class="card border-0 shadow-sm">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Prénom & Nom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Statut Pass</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="u : ${users}">
+                            <td th:text="${u.id}">1</td>
+                            <td th:text="${u.firstName + ' ' + u.lastName}">Khadija Sadji</td>
+                            <td th:text="${u.email}">khadija@esmt.sn</td>
+                            <td><span class="badge bg-secondary" th:text="${u.role}">USER</span></td>
+                            <td>
+                                    <span th:if="${u.mobilityPass != null}"
+                                          class="badge"
+                                          th:classappend="${u.mobilityPass.status == 'ACTIVE' ? 'bg-success' : 'bg-danger'}"
+                                          th:text="${u.mobilityPass.status}"></span>
+                                <span th:if="${u.mobilityPass == null}" class="text-muted small">Aucun pass</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>
